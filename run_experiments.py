@@ -35,7 +35,7 @@ def parse_progress_line(line: str) -> dict:
             result["count"] = numerator(data)
         elif label == "time":
             times = map(float, map(str.strip, data.split(time_sep)))
-            result["image_time"], result["cum_verif_time_per_verif"], result["cum_verif_time"] = times
+            result["image_time"], result["avg_verif_time"], result["cum_verif_time"] = times
         else:
             logging.warning(f"Unrecognized label ({label}) in progress line: {line}")
     return result
