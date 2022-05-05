@@ -10,7 +10,7 @@ def enrich_data(data: pd.DataFrame) -> pd.DataFrame:
         return (verified / correct) * 100 if correct > 0 else 0
 
     def get_activation(model_path: str) -> str:
-        activations = ["ReLU", "ELU", "sigmoid", "tanh"]
+        activations = ["ReLU", "ELU", "Sigmoid", "Tanh"]
         chunks = model_path.split("/")
         for activation in activations:
             if activation in chunks:
@@ -30,7 +30,7 @@ def plot_vs_epsilon(data: pd.DataFrame, y_col: str, y_axis_label=None, title=Non
         fig, ax = plt.subplots()
     elif fig is None:
         raise ValueError("Must supply a figure if you're supplying an axes object")
-    colors = iter(["green", "darkgreen", "blue", "darkblue"])
+    colors = iter(["green", "darkgreen", "blue", "darkblue", "orange", "red"])
     for (activation, adversarially_trained), epsilon, ys in plot_data.itertuples():
         label = f"{activation}, {'adv' if adversarially_trained else 'not adv'}"
         ax.plot(epsilon, ys, 'o-', label=label, color=next(colors))
