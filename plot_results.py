@@ -32,7 +32,7 @@ def plot_vs_epsilon(data: pd.DataFrame, y_col: str, y_axis_label=None, title=Non
         raise ValueError("Must supply a figure if you're supplying an axes object")
     colors = iter(["green", "darkgreen", "blue", "darkblue", "orange", "red"])
     for (activation, adversarially_trained), epsilon, ys in plot_data.itertuples():
-        label = f"{activation}, {'adv' if adversarially_trained else 'not adv'}"
+        label = f"{activation}{', adv' if adversarially_trained else ''}"
         ax.plot(epsilon, ys, 'o-', label=label, color=next(colors))
 
     ax.set_xlabel("epsilon")
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     data = pd.read_csv(datafile)
     data = enrich_data(data)
 
-    fig1, _ = plot_vs_epsilon(data, "verified_pct", y_axis_label="% verified")
+    fig1, _ = plot_vs_epsilon(data, "verified_pct", y_axis_label="% verified", title="")
     fig2, _ = plot_vs_epsilon(data, "verified", y_axis_label="# correct and verified")
 
     fig1.savefig("verified_pct_plot.png")
